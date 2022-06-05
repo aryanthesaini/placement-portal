@@ -1,0 +1,49 @@
+<%layout('layout/boilerplate') %> 
+    
+
+
+    <h1 class="text-center mb-5 text-white">ALL COMPANIES</h1>
+
+    <% if(currentUser && currentUser.username=='aryan'){ %>
+        <div class="d-flex flex-column justify-content-center align-items-center my-5"><a href="/placements/new"><button class="btn btn-lg btn-danger">ADD NEW</button></a></div>
+        
+        <% } %>
+        <% for(let place of placements){ %> 
+            <div class="card mb-3" style=" background-color: transparent;">
+                <div class="row ">
+                    <div class="col-md-4 card-image"">
+                        <img src="<%=place.image%> " alt="" class="img-fluid" style="border-radius: 3rem; width: 100%; max-height: 300px;">
+                    </div>
+                    <div class="col-md-8 card-body-top text-white">
+                        <div class="card-body">
+                            <h2 class="card-title">
+                                <%= place.name  %> 
+                            </h2>
+                            <h5 class="card-text">
+                                CTC (in lakhs) offered: <%=place.price  %> 
+                            </h5>
+                            <p class="card-text">
+                                <%=place.description  %> 
+                            </p>
+                            <p class="card-text">
+                                <small class="lead">Location: <%=place.location %> </small>
+                            </p>
+                            <p class="card-text">
+                                <% place.appliedBy.map((item)=>{ %>
+                                    <% if(currentUser){ %> 
+                                    <%if(item==currentUser._id){%>
+                                        <small class="text-muted">You have applied for this position</small>
+                                   <% } %> 
+                                   <% } %>  
+                                <%}) %> 
+                                
+                            </p>
+                            <a href="/placements/<%=place._id%>" class="btn btn-outline-primary">View <%=place.name  %> </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        <% } %> 
+
+    

@@ -1,0 +1,82 @@
+<%layout('layout/boilerplate') %> 
+
+
+
+    <div class="row mb-5">
+        <div class="col-md-6 view-box">
+            <div class="card text-white" style="background: none;">
+                <img src="<%= company.image %> " class="card-img-top" alt="..." style="max-height: 200px;">
+                <div class="card-body">
+                  <h2 class="card-title"><%=company.name %></h2>
+                  <h5 class="card-text"><%=company.description%></h5>
+                </div>
+                <ul class="list-group list-group-flush" >
+                  <li class="list-group-item text-white" style="background: none;">CTC (in Lakhs) offered:  <%=company.price %> </li>
+                  <li class="list-group-item text-white" style="background: none;">Location: <%=company.location %> </li>
+                  <li class="list-group-item text-white" style="background: none;">Applied by: <%=company.appliedBy %> </li>             
+                  <li class="list-group-item text-white " style="background: none;">Trying: <%=company %> </li>
+                  <% company.appliedBy.map((item)=>{ %>
+                    <%if(item==currentUser.username){%>
+                        <li class="list-group-item text-muted">You have already applied for this position <%=currentUser.username %> </li>
+                   <% } %>  
+                <%}) %> 
+                  
+            
+                </ul>
+                
+               
+              </div>
+        </div>
+        <div class="col-md-6">
+            <div id="map" style="width:100%; height:300px"></div>
+            <div class="card-body">
+                <div class="d-grid gap-2 mb-3">
+                    <a href="/placement" class="card-link btn btn-info">View All</a>
+                  
+                </div>
+                <div class="d-grid gap-2">
+                 
+                    <a href="/placements/<%=company._id%>/edit" class="card-link btn btn-success">Confirm application</a>
+                </div>
+                <% if(currentUser.username === 'aryan'){ %> 
+                <div class="my-3">
+                    <form action="/placements/<%=company._id%>?_method=DELETE" method="POST">
+                    <div class="d-grid gap-2">
+                    <button class="card-link btn btn-outline-danger">DELETE</button>
+                    </div>
+                    </form>
+                </div> 
+                <% } %> 
+                   
+                    
+          
+                  
+            </div>
+        </div>
+    </div>
+
+
+
+   <script>
+        const mapToken = '<%-process.env.MAPBOX_TOKEN%>'
+        const coordinates = JSON.parse('<%-JSON.stringify(coordinates)%>')
+        // console.log(coordinates)
+
+       mapboxgl.accessToken = mapToken
+       const map = new mapboxgl.Map({
+        container: 'map', 
+        style: 'mapbox://styles/mapbox/dark-v10', 
+        center: coordinates, 
+        zoom: 9 
+    });
+    new mapboxgl.Marker()
+        .setLngLat(coordinates)
+        .setPopup(
+            new mapboxgl.Popup({offset: 25})
+            .setHTML(
+                `<h6><%=company.name%></h6>`
+            )
+        )
+        .addTo(map)
+   </script>
+   

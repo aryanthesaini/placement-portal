@@ -1,0 +1,31 @@
+body{
+    height: 100vh;
+    background-image: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)),
+    url('https://www.edufever.com/wp-content/uploads/2020/10/NSUT-Image-1.jpg');
+    background-size: cover;
+    background-position: center;
+}
+
+.cover-container{
+    max-width: 60vw;
+}
+
+
+.nav-link{
+    padding: 0.25rem 0;
+    font-weight: 100;
+    color: rgba(255, 255, 255, 0.8);
+    margin-left: 1rem;
+    border-bottom: 0.25rem solid transparent;
+}
+
+.nav-link:hover{
+    color: rgba(255, 255, 255, 0.8);
+    border-bottom-color: rgba(255, 255, 255, 0.8);
+}
+
+h1{
+    margin-bottom: 3rem;
+    font-weight: 100;
+    font-size: 3rem;
+}
