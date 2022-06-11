@@ -1,7 +1,7 @@
 # Placement Portal 
 
 
-###TECH STACK
+### TECH STACK
 - NodeJs
 - MongoDB
 - ExpressJS
